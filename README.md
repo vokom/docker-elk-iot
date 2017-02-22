@@ -2,11 +2,18 @@
 - Credit to [deviantony/docker-elk](https://github.com/deviantony/docker-elk) for a great starting point.
 
 ## Setup
+Run this script:
 
-1. Install [Docker](http://docker.io).
-2. Install [Docker-compose](http://docs.docker.com/compose/install/) **version >= 1.6**.
-3. Clone this repository
-4. `sudo sysctl -w vm.max_map_count=262144`
+```bash
+sudo yum install -y yum-utils
+sudo yum-config-manager --add-repo https://docs.docker.com/engine/installation/linux/repo_files/centos/docker.repo
+sudo yum install -y docker-engine python-pip git
+sudo systemctl enable docker
+sudo systemctl start docker
+sudo pip install -U docker-compose
+git clone https://github.com/rhefner1/docker-elk-iot.git
+sudo sysctl -w vm.max_map_count=262144
+```
 
 ## Usage
 
