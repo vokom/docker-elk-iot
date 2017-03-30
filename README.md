@@ -6,8 +6,8 @@ Run this script:
 
 ```bash
 sudo yum install -y yum-utils
-sudo yum-config-manager --add-repo https://docs.docker.com/engine/installation/linux/repo_files/centos/docker.repo
-sudo yum install -y docker-engine python-pip git
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo/docker.repo
+sudo yum install -y docker-ce python-pip git
 sudo systemctl enable docker
 sudo systemctl start docker
 sudo pip install -U docker-compose
