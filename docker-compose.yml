@@ -13,10 +13,11 @@ services:
     volumes:
       - /es-data:/usr/share/elasticsearch/data
 
-  rabbitmq:
-    build: rabbitmq/
+  mqtt:
+    build: mqtt/
     ports:
-      - "5672:5672"
+      - "1883:1883"
+      - "9001:9001"
     networks:
       - stack
 

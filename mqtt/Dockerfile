@@ -1,0 +1,1 @@
+FROM toke/mosquitto:latest
