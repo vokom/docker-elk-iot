@@ -43,7 +43,7 @@ services:
       - stack
     depends_on:
       - elasticsearch
-      - rabbitmq
+      - mqtt
 
 networks:
   stack:
