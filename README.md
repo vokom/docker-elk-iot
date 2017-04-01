@@ -6,7 +6,7 @@ Run this script:
 
 ```bash
 sudo yum install -y yum-utils
-sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo/docker.repo
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 sudo yum install -y docker-ce python-pip git
 sudo systemctl enable docker
 sudo systemctl start docker
@@ -32,4 +32,4 @@ By default, the stack exposes the following ports:
 - 9200: Elasticsearch HTTP
 - 9300: Elasticsearch TCP transport
 - 5601: Kibana
-- 5672: RabbitMQ
+- 5672, 1883, 9001: RabbitMQ (MQTT broker)
