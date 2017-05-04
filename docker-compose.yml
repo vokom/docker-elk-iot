@@ -44,6 +44,10 @@ services:
       - elasticsearch
       - rabbitmq
 
+volumes:
+  es-data:
+    driver: local
+
 networks:
   stack:
     driver: bridge
