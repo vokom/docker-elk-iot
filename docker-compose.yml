@@ -14,7 +14,6 @@ services:
       memlock:
         soft: -1
         hard: -1
-    mem_limit: 12g
     networks:
       - stack
     volumes:
