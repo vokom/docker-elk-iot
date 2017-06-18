@@ -27,7 +27,7 @@ services:
       - "9001:9001"
       - "15672:15672"
     networks:
-      - esnet
+      - stack
 
   kibana:
     build: kibana/
