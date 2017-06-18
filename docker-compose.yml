@@ -2,22 +2,45 @@ version: '3'
 
 services:
   elasticsearch:
-    build: elasticsearch/
-    ports:
-      - "9200:9200"
-      - "9300:9300"
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.4.1
+    container_name: elasticsearch
     environment:
-      - cluster.name=docker-cluster
-      - bootstrap.memory_lock=true
+      - "network.host=0.0.0.0"
+      - "discovery.zen.minimum_master_nodes=1"
+      - "bootstrap.memory_lock=true"
+      - "xpack.security.enabled=false"
       - "ES_JAVA_OPTS=-Xms8g -Xmx12g"
     ulimits:
       memlock:
         soft: -1
         hard: -1
-    networks:
-      - stack
+    mem_limit: 1g
     volumes:
       - ./data/es-data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+    networks:
+      - esnet
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:5.4.1
+    ports:
+      - "5601:5601"
+    networks:
+      - esnet
+    environment:
+      - "server.port=5601"
+      - "server.host=0.0.0.0"
+      - "elasticsearch.url=http://elasticsearch:9200"
+      - "xpack.security.enabled=false"
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:5.4.1
+    environment:
+      SERVER_NAME: kibana.example.org
+      ELASTICSEARCH_URL: http://elasticsearch.example.org
 
   rabbitmq:
     build: rabbitmq/
@@ -27,18 +50,7 @@ services:
       - "9001:9001"
       - "15672:15672"
     networks:
-      - stack
-
-  kibana:
-    build: kibana/
-    volumes:
-      - ./kibana/config/:/etc/kibana/
-    ports:
-      - "5601:5601"
-    networks:
-      - stack
-    depends_on:
-      - elasticsearch
+      - esnet
 
   logstash:
     build: logstash/
@@ -48,7 +60,7 @@ services:
     ports:
       - "5000:5000"
     networks:
-      - stack
+      - esnet
     depends_on:
       - elasticsearch
       - rabbitmq
@@ -58,5 +70,5 @@ volumes:
     driver: local
 
 networks:
-  stack:
+  esnet:
     driver: bridge
