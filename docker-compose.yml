@@ -11,7 +11,7 @@ services:
     networks:
       - stack
     volumes:
-      - /es-data:/usr/share/elasticsearch/data
+      - ./data/es-data:/usr/share/elasticsearch/data
 
   rabbitmq:
     build: rabbitmq/
@@ -46,6 +46,10 @@ services:
     depends_on:
       - elasticsearch
       - rabbitmq
+
+volumes:
+  es-data:
+    driver: local
 
 networks:
   stack:

@@ -1,1 +1,3 @@
-FROM kibana:5.2
+FROM docker.elastic.co/kibana/kibana:5.3.0
+
+COPY config/kibana.yml /etc/kibana/
