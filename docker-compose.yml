@@ -35,12 +35,6 @@ services:
     depends_on:
       - elasticsearch
 
-  kibana:
-    image: docker.elastic.co/kibana/kibana:5.4.1
-    environment:
-      SERVER_NAME: kibana.example.org
-      ELASTICSEARCH_URL: http://elasticsearch.example.org
-
   rabbitmq:
     build: rabbitmq/
     ports:
@@ -50,6 +44,8 @@ services:
       - "15672:15672"
     networks:
       - esnet
+    depends_on:
+      - elasticsearch
 
   logstash:
     build: logstash/
